@@ -1,0 +1,41 @@
+spring.main.allow-bean-definition-overriding: true
+server.port: 8085
+
+spring:
+  application:
+    name: order-service
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  batch:
+    initialize-schema: never
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: never
+    hikari:
+      auto-commit: false
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  profiles:
+    active: dev
+
+flow:
+  processId: order-process
+
+zeebe:
+  client:
+    security:
+      plaintext: true
+    broker:
+      contact-point: 127.0.0.1:26500
